@@ -1,0 +1,33 @@
+{
+  "name": "runebase-telegram-airdropper",
+  "version": "0.0.1",
+  "description": "Airdrop Bot For Runes & RRC20 Tokens",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/runebase/runebase-telegram-airdropper.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/runebase/runebase-telegram-airdropper/issues"
+  },
+  "homepage": "https://github.com/runebase/runebase-telegram-airdropper#readme",
+  "dependencies": {
+    "mongodb": "^3.1.8",
+    "node-telegram-bot-api": "^0.30.0",
+    "ora": "^3.0.0",
+    "runebasejs": "^1.9.1",
+    "rweb3": "^0.8.0",
+    "sleep-async": "^1.0.5",
+    "telegram-bot-nova": "^2.4.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.4"
+  }
+}
