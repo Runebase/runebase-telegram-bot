@@ -1,8 +1,7 @@
 ### AirDrop RRC20 tokens.
+####  Node V9.3.0+, Mongodb
 
-###  Node V9.3.0+, Mongodb
-
-## install
+#### install
 
 ```
 git clone https://github.com/runebase/runebase-telegram-bot
@@ -11,6 +10,22 @@ npm i
 
 ```
 
-###  Add Contracts & solar.json
+####  Add Contracts & solar.json
 
-### Edit config
+#### Edit config
+
+```
+
+```
+
+#### start
+
+dev:
+```
+npm run dev
+```
+
+prod:
+```
+npm run start
+```
