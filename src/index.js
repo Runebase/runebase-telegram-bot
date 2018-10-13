@@ -22,8 +22,6 @@ async function dropdb() {
 		  const db = client.db('airdrops');
 		  var collection = db.collection("pred");
 		  collection.drop().catch(error => console.error("error"));
-		  //collection = db.collection("runes");
-		  //collection.drop();
 	}).catch(error => console.error(error));
 }
 
@@ -42,17 +40,11 @@ async function transfer(fromAddr, toAddr, amount, myToken, matchFound, from, cha
 				{ upsert: true }
 				);
 				client.close();
-				}).catch(error => console.error(error));
-			  console.log("transfer tx:", tx.txid);
-			  console.log(tx);
-			  console.log("userId: " + matchFound["userId"]);
-			  
-			  // or: await tx.confirm(1)
-			  const confirmation = tx.confirm(1)
-			  ora.promise(confirmation, "confirm transfer")
+				}).catch(error => console.error(error));			  
+			  const confirmation = tx.confirm(1);
+			  ora.promise(confirmation, "confirm transfer");
 			  await confirmation;
 			  bot.sendText(chat.id, 'Thank you for participating in the ' + matchFound["token"] + ' airdrop, ' + from.username + '.\n You can see the transaction on the runebase blockexplorer at: https://explorer.runebase.io/tx/' + tx.txid);
-			  console.log("your transaction confirmed with txid: " + tx.txid);
   				  		MongoClient.connect(config.db.host, { useNewUrlParser: true })
 						.then(client => {
 						  const db = client.db('airdrops');
@@ -98,10 +90,9 @@ async function main() {
 				    if (regex.test(text)) {
 				    	var matchFound = new Object();
 				    	//Trim The String
-				    	matchFound = trimTheString(text.match(regex), from, key)
+				    	matchFound = trimTheString(text.match(regex), from, key);
 				    	console.log(matchFound);
 				    	console.log(matchFound.receiveAddress);
-
 					    //Validate the Address
 					    await RunebaseUtils.validateAddress({ address: matchFound["receiveAddress"] })
 						  .then((result) => {
@@ -109,13 +100,12 @@ async function main() {
 						  		//Query mongoDB
 								(async () => {
 									await delay();
-									await delay();
 							  		await MongoClient.connect(config.db.host, { useNewUrlParser: true })
 									.then(client => {
 									  const db = client.db('airdrops');
 									  const collection = db.collection(matchFound["token"]);
 									  var userId = matchFound["userId"];
-									  var receiveAddress = matchFound["receiveAddress"]
+									  var receiveAddress = matchFound["receiveAddress"];
 									   collection.find( { $or: [ { "_id": userId }, { "receiveAddress": receiveAddress } ] } ).toArray(async function(err, result) {
 										await isEligible(result, matchFound, from, chat);
 									   });
@@ -158,14 +148,13 @@ async function isEligible(result, matchFound, from, chat) {
     			client.close();
 			}).catch(error => console.error(error));
 
-
 	    	//Create Transaction
 	    	console.log('Create transaction');
 	    	var myToken = runebase.contract("contracts/tokens/" + matchFound["contract"]);
 			var hexaddress = await RunebaseUtils.getHexAddress({ address: matchFound["receiveAddress"] });
 			RunebaseUtils.walletPassphrase({ passphrase: config.wallet.passphrase , timeout: 600 });
 			transfer(matchFound["fromAddress"], hexaddress, matchFound["amount"], myToken, matchFound, from, chat);
-		    }
+		}
 }
 
 main().catch(err => {
