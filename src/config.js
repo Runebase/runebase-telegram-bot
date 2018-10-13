@@ -1,13 +1,13 @@
 var config = {};
 
 config.bot = {};
-config.bot.token = 'YOUR_TELEGRAM_BOT_TOKEN';
+config.bot.token = 'TELEGRAM_BOT_TOKEN';
 
 config.db = {};
 config.db.host = 'mongodb://localhost/';
 
 config.wallet = {};
-config.wallet.passphrase  = "YOU_WALLET_PASSPHRASE";
+config.wallet.passphrase  = "WALLET_PASSPHRASE";
 
 config.airdrop = {};
 

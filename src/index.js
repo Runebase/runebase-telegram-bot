@@ -66,24 +66,24 @@ async function transfer(fromAddr, toAddr, amount, myToken, matchFound, from, cha
 						    client.close();
 						}).catch(error => console.error(error)); 
 }
-async function trimTheString(match, from) {
-					    match[0] = match[0].replace(/\s/g, "");
-					    match[0] = match[0].replace(/(\W|^)(.+)\s\2/ig, " ");
-						match  = match[0].split('[');
-						match[1] = match[1].replace(']','');
-						match[2] = match[2].replace(']','');
+function trimTheString(match, from, key) {
+	match[0] = match[0].replace(/\s/g, "");
+	match[0] = match[0].replace(/(\W|^)(.+)\s\2/ig, " ");
+	match  = match[0].split('[');
+	match[1] = match[1].replace(']','');
+	match[2] = match[2].replace(']','');
 
-						// structure data
-						var matchFound = new Object();
-						matchFound["token"] = match[1];
-						matchFound["receiveAddress"]= match[2];
-						matchFound["userId"]= from.id;
-						var obj = config.airdrop[key];    
-					    for (var prop in obj) {
-					        if(!obj.hasOwnProperty(prop)) continue;
-					        matchFound[prop] = obj[prop];
-					    }
-					   return matchFound;
+	// structure data
+	var matchFound = new Object();
+	matchFound["token"] = match[1];
+	matchFound["receiveAddress"]= match[2];
+	matchFound["userId"]= from.id;
+	var obj = config.airdrop[key];    
+	for (var prop in obj) {
+		if(!obj.hasOwnProperty(prop)) continue;
+			matchFound[prop] = obj[prop];
+		}
+	return matchFound;
 }
 async function main() {
 	await dropdb();
@@ -98,8 +98,9 @@ async function main() {
 				    if (regex.test(text)) {
 				    	var matchFound = new Object();
 				    	//Trim The String
-				    	var matchFound = trimTheString(text.match(regex), from)
-				    	console.log(matchFound)
+				    	matchFound = trimTheString(text.match(regex), from, key)
+				    	console.log(matchFound);
+				    	console.log(matchFound.receiveAddress);
 
 					    //Validate the Address
 					    await RunebaseUtils.validateAddress({ address: matchFound["receiveAddress"] })
@@ -170,5 +171,4 @@ async function isEligible(result, matchFound, from, chat) {
 main().catch(err => {
   console.log("error", err)
 })
-
 
