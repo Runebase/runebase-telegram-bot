@@ -15,15 +15,15 @@ async function delay () {
   await timeout(Math.floor(Math.random() * 1200) + 600 );
 }
 
-async function dropdb() {
-    //Drop DB
-    MongoClient.connect(config.db.host, { useNewUrlParser: true })
-		.then(client => {
-		  const db = client.db('airdrops');
-		  var collection = db.collection("pred");
-		  collection.drop().catch(error => console.error("error"));
-	}).catch(error => console.error(error));
-}
+//async function dropdb() {
+//    //Drop DB
+//    MongoClient.connect(config.db.host, { useNewUrlParser: true })
+//		.then(client => {
+//		  const db = client.db('airdrops');
+//		  var collection = db.collection("pred");
+//		  collection.drop().catch(error => console.error("error"));
+//	}).catch(error => console.error(error));
+//}
 
 async function transfer(fromAddr, toAddr, amount, myToken, matchFound, from, chat) {
   const tx = await myToken.send("transfer", [toAddr, amount], {
@@ -78,7 +78,7 @@ function trimTheString(match, from, key) {
 	return matchFound;
 }
 async function main() {
-	await dropdb();
+	//await dropdb();
 	bot.on('text', (chat, date, from, messageId, text) => {
 		(async () => {
 				console.log(from);
