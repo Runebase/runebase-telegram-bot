@@ -7,22 +7,22 @@ config.db = {};
 config.db.host = 'mongodb://localhost/';
 
 config.wallet = {};
-config.wallet.passphrase  = "WALLET_PASSPHRASE";
+config.wallet.passphrase  = "passphase";
 
 config.airdrop = {};
 
-//config.airdrop.runes = {};
-//config.airdrop.runes.amount  = 1 * 1e+8;
-//config.airdrop.runes.contract  = "";
-//config.airdrop.runes.fromAddress  = "";
+config.airdrop.runes = {};
+config.airdrop.runes.amount  = 1 * 1e+8;
+config.airdrop.runes.contract  = "";
+config.airdrop.runes.fromAddress  = "";
 
 config.airdrop.pred = {};
 config.airdrop.pred.amount  = 1 * 1e+8;
 config.airdrop.pred.contract  = "RunebasePredictionToken.sol";
-config.airdrop.pred.fromAddress  = "5kzfH7ccsxCwGoBYmrxrNcF1spsTWYwXJ6";
+config.airdrop.pred.fromAddress  = "RJMRmWMdPxPgDM3zj1RHVrTiXZCUcQdZJE";
 
 
-config.rpc = "http://user:pass@localhost:19432"
+config.rpc = "http://user:pass@localhost:9432"
 
 
 

@@ -373,11 +373,11 @@
       "binhash": "1256a31bdf0ab2ab59c1b60511e758a2733c34ffb8d50d3f1b165d36b0288bf1",
       "name": "RunebasePredictionToken",
       "deployName": "contracts/tokens/RunebasePredictionToken.sol",
-      "address": "66cf6409b12e09d9d16395d2f0b224e56c3dc3a2",
+      "address": "f41619e2f259c4d9310658a89d0924ac35c82491",
       "txid": "95a6d28122580d980a02a99c62bc689626296c7261795248f9bdc64b0ab39425",
       "createdAt": "2018-10-12T04:08:25.634853136+02:00",
       "confirmed": true,
-      "sender": "5Unw8m3aTBhJADttnoeJncKxhRstbbw9LX",
+      "sender": "RTgMnAHJuMyEgzsdgjwi7WDuz3eS4mM3QN",
       "senderHex": "21b87c216a9693fb16783e870d2a2b7ae0da4018"
     }
   },
