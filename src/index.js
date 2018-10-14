@@ -40,7 +40,8 @@ async function transfer(fromAddr, toAddr, amount, myToken, matchFound, from, cha
 				{ upsert: true }
 			);
 			client.close();
-	}).catch(error => console.error(error));			  
+	}).catch(error => console.error(error));
+	bot.sendText(chat.id, 'Thanks, ' + from.username + '.\nYour Transaction is being confirmed.');
 	const confirmation = tx.confirm(1);
 	ora.promise(confirmation, "confirm transfer");
 	await confirmation;
