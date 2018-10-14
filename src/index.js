@@ -88,7 +88,7 @@ async function main() {
 			for (var key in config.airdrop) {
 			    if (!config.airdrop.hasOwnProperty(key)) continue;
 			    var regex = new RegExp("\\[[ \t]*" + key + "[ \t]*\\][ \t]*\\[[ \t]*.{34,34}[ \t]*\\]","g");
-			    if (regex.test(text)) {
+			    if (regex.test(text) && from.is_bot == false) {
 			    	var matchFound = new Object();
 			    	//Trim The String
 			    	matchFound = trimTheString(text.match(regex), from, key);
