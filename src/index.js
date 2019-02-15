@@ -16,7 +16,7 @@ async function delay () {
 }
 
 //async function dropdb() {
-//    //Drop DB
+    //Drop DB
 //    MongoClient.connect(config.db.host, { useNewUrlParser: true })
 //		.then(client => {
 //		  const db = client.db('airdrops');
@@ -40,11 +40,13 @@ async function transfer(fromAddr, toAddr, amount, myToken, matchFound, from, cha
 				{ upsert: true }
 			);
 			client.close();
-	}).catch(error => console.error(error));			  
+	}).catch(error => console.error(error));	
+	bot.sendText(chat.id, 'Thanks, ' + from.username + '.\nYour Transaction is being confirmed.');
+  			  
 	const confirmation = tx.confirm(1);
 	ora.promise(confirmation, "confirm transfer");
 	await confirmation;
-	bot.sendText(chat.id, 'Thank you for participating in the ' + matchFound["token"] + ' airdrop, ' + from.username + '.\n You can see the transaction on the runebase blockexplorer at: https://explorer.runebase.io/tx/' + tx.txid);
+	bot.sendText(chat.id, 'Thank you for participating in the ' + matchFound["token"] + ' airdrop, ' + from.username + '.\n You can see the transaction on the runebase blockexplorer at: https://explorer.runebase.io/tx/' + tx.txid +'\n Remember, you need runes to transact on the blockchain. \nGrab some free runes at : https://faucet.runebase.io');
   	MongoClient.connect(config.db.host, { useNewUrlParser: true })
 	.then(client => {
 		const db = client.db('airdrops');
@@ -80,15 +82,16 @@ function trimTheString(match, from, key) {
 async function main() {
 	//await dropdb();
 	bot.on('text', (chat, date, from, messageId, text) => {
-		console.log(chat);
-		console.log(from);
+		//console.log(chat);
+		//console.log(from);
 		(async () => {
-			console.log(from);
+			
 			await delay();
 			for (var key in config.airdrop) {
 			    if (!config.airdrop.hasOwnProperty(key)) continue;
 			    var regex = new RegExp("\\[[ \t]*" + key + "[ \t]*\\][ \t]*\\[[ \t]*.{34,34}[ \t]*\\]","g");
-			    if (regex.test(text)) {
+			    if (regex.test(text) && from.is_bot == false) {
+			    	console.log(from);
 			    	var matchFound = new Object();
 			    	//Trim The String
 			    	matchFound = trimTheString(text.match(regex), from, key);
@@ -147,7 +150,8 @@ async function isEligible(result, matchFound, from, chat) {
 	    	console.log('Create transaction');
 	    	var myToken = runebase.contract("contracts/tokens/" + matchFound["contract"]);
 			var hexaddress = await RunebaseUtils.getHexAddress({ address: matchFound["receiveAddress"] });
-			RunebaseUtils.walletPassphrase({ passphrase: config.wallet.passphrase , timeout: 60 });
+			RunebaseUtils.walletPassphrase({ passphrase: config.wallet.passphrase , timeout: 6000000 });
+			await delay();
 			transfer(matchFound["fromAddress"], hexaddress, matchFound["amount"], myToken, matchFound, from, chat);
 		}
 }
